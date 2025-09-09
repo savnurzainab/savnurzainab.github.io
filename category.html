@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Idealfurniture - Admin</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">Ideal furniture</div>
+	
+ <nav class="top-nav">
+    <a>Media</a>
+    <a href="category.html" class="active">Category</a>
+	 <button class="logout-btn" style='border-radius:20px;'>
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+
+  </nav>
+
+
+
+  </header>
+   <ul id="subNav">
+  <li><a href="Category.html" class="activeSub">Category</a></li>
+  <li><a href="Subcategory.html">Subcategory</a></li>
+  </ul> 
+
+
+
+  <main class="container">
+ 
+    <section class="admin-list">
+	  <div id="categoriesList">
+      <h2>Categories</h2>
+      <table id="categoriesTable">
+                   <thead>
+                    <tbody>
+                       
+                    </tbody>
+					  <thead>
+                </table>
+
+</div>
+    </section>
+
+
+	 
+
+    <section class="admin-form">
+      <h2>Add category</h2>
+
+  <!-- Create Category Form
+            <div id="createCategoryForm" class="form-container">
+                <h2>Create New Category</h2>
+                <input type="text" id="categoryName" class="input-field" placeholder="Enter Category Name" />
+                <button id="createCategoryBtn" class="btn btn-create">Create Category</button>
+            </div>
+ -->
+
+			<div id="editCategoryForm" class="form-container" style="display:none;">
+                <h2>Edit Category</h2>
+                <input type="text" id="editCategoryName" class="input-field" />
+                <input type="hidden" id="editCategoryId" />
+                <div class="edit-buttons">
+                    <button id="updateCategoryBtn" class="btn btn-update">Update Category</button>
+                    <button id="cancelEditBtn" class="btn btn-cancel">Cancel</button>
+                </div>
+            </div>
+
+
+      <form>
+
+			 <div id="createCategoryForm" class="form-container">
+                <h2>Create New Category</h2>
+                <input type="text" id="categoryName" class="input-field" placeholder="Enter Category Name" />
+                <button id="createCategoryBtn" class="btn btn-create">Create Category</button>
+            </div>
+
+
+      
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <p>&copy; 2025 SmartLaundry. All rights reserved.</p>
+</footer>
+    <script src="app.js"></script>
+</body>
+</html>

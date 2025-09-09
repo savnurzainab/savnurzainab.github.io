@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        .success-message {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <!-- Login Form -->
+        <input type="text" id="username" class="input-field" placeholder="Username" required>
+        <input type="password" id="password" class="input-field" placeholder="Password" required>
+        <button class="button" onclick="login()">Login</button>
+
+        <!-- Messages -->
+        <div id="message" class="error-message"></div>
+    </div>
+
+    <script>
+        // Function to handle login
+        async function login() {
+            // Clear any previous messages
+            document.getElementById('message').innerHTML = '';
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validate input
+            if (!username || !password) {
+                document.getElementById('message').innerHTML = 'Please fill in both fields';
+                return;
+            }
+
+            // Prepare the login data
+            const loginData = {
+                username: username,
+                password: password
+            };
+
+            try {
+                const response = await fetch('http://localhost:5250/api/Auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Display success message (or handle the token in real apps)
+                    /*document.getElementById('message').classList.add('success-message');
+                    document.getElementById('message').innerHTML = result.message || 'Login successful!';*/
+					window.location.href = 'category.html';
+
+                    // Redirect to another page or show a protected area
+                    // window.location.href = '/dashboard';  // Uncomment for redirect
+                } else {
+                    // Display error message
+                    document.getElementById('message').innerHTML = result.message || 'Invalid username or password';
+                    document.getElementById('message').classList.add('error-message');
+                }
+            } catch (error) {
+                document.getElementById('message').innerHTML = 'Error occurred: ' + error.message;
+                document.getElementById('message').classList.add('error-message');
+            }
+        }
+    </script>
+</body>
+</html>
