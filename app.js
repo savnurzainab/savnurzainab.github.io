@@ -1,7 +1,7 @@
 // Base URL of your API (adjust the URL as needed)
 //const apiUrl = 'http://localhost:5250/api/category';
 
-const apiUrl ='http://idealfurniture.runasp.net/api/category';
+const apiUrl ='https://idealfurniture.runasp.net/api/category';
 
 // Elements
 const createCategoryBtn = document.getElementById('createCategoryBtn');
