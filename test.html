@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page title goes here..</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../sty/sty___.css">
+
+	<script src="../inc/___.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<form id="uploadForm">
+    <label for="subCategoryId">Sub Category ID:</label>
+    <input type="number" id="subCategoryId" name="subCategoryId" required>
+
+    <label for="Description">Description:</label>
+    <textarea id="Description" name="Description" required></textarea>
+
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    // Handle the form submission
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const sCategoryId = document.getElementById('subCategoryId').value;
+        const desc = document.getElementById('Description').value;
+        const imageFile = document.getElementById('image').files[0];
+
+        if (!imageFile) {
+            alert('Please select an image!');
+            return;
+        }
+
+        // Call the uploadMedia function with the form data
+        uploadMedia(sCategoryId, desc, imageFile);
+    });
+
+	function uploadMedia(subCatId, descrip, imageFile) {
+		alert(subCatId +'             '+ descrip);
+    // Create a FormData object to handle multipart/form-data
+    const formData = new FormData();
+    
+    // Append the form fields to the FormData object
+    formData.append('subCategoryId', parseInt(subCatId));   // append integer for subCategoryId
+    formData.append('description', descrip);        // append text for Description
+    formData.append('image', imageFile);                // append image file for image
+
+	for (let pair of formData.entries()) {
+    console.log(pair[0] + ': ' + pair[1]);
+}
+
+    // Make the POST request to the Web API
+    fetch('http://localhost:5250/api/media/upload', {
+        method: 'POST',
+        body: formData, // Automatically sets the correct Content-Type for multipart/form-data
+    })
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+        console.log('Success:', data);
+        alert('Upload successful!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error during upload.');
+    });
+}
+</script>
+</body>
+</html>

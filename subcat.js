@@ -1,6 +1,5 @@
 // Base URL of your API (adjust the URL as needed)
 //const apiUrl = 'http://localhost:5250/api/subcategory';
-
 const apiUrl ='https://idealfurniture.runasp.net/api/subcategory';
 
 // Elements
@@ -77,7 +76,7 @@ async function getnsubcategories() {
 
 // Create Subcategory
 async function createSubcategory() {
-    const catId = categoryDropdown.value.trim();
+    const catId = categoryAdDropdown.value.trim();
 	const SubcategoryName = SubcategoryNameInput.value.trim();
     if (!SubcategoryName) {
         alert('Please enter a Subcategory name.');
@@ -89,7 +88,7 @@ async function createSubcategory() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: SubcategoryName }),
+        body: JSON.stringify({ name: SubcategoryName, catId: catId }),
     });
 
     if (response.ok) {
@@ -202,15 +201,4 @@ fetchsubcategories();
 
 
 
-        fetch("http://localhost:5250/api/category")
-            .then(response => response.json())
-            .then(data => {
-                const dropdown = document.getElementById("categoryDropdown");
-                data.forEach(item => {
-                    const option = document.createElement("option");
-                    option.value = item.id;
-                    option.text = item.name;
-                    dropdown.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error loading categories:', error));
+    

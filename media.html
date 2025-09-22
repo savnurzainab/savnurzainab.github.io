@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Idealfurniture - Admin</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">Ideal furniture</div>
+	
+ <nav class="top-nav">
+    <a  href="media.html" class="active">Media</a>
+    <a href="category.html">Category</a>
+ </nav>
+	<a class="icLG" href="index.html">Logout</a>
+
+
+  </header>
+ 
+
+
+
+  <main class="container">
+ 
+    <section class="admin-list">
+	  <div id="categoriesList">
+      <h2>Media</h2>
+
+	 <ul id="itemsList">
+		<li>Ken Sverdstad Thoresen  <span class="actions">
+			<a href="#" class="edit" title="Edit"><i class="fas fa-edit"></i></a>
+			<a href="#" class="delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
+		</span></li>
+	</ul>
+    </section>
+
+
+	 
+
+    <section class="admin-form">
+      <h2>Add Media</h2>
+	   <form id="uploadForm" enctype="multipart/form-data" method="POST">
+
+		<label for="categoryDropdown">Category:</label>
+	   	<select id="categoryDropdown" onchange="fnOnchangeCategory();" required>
+			<option value="">-- Select Category --</option>
+		</select><br/><br/>
+
+
+        <label for="subCategoryDropdown">Subcategory:</label>
+ 		<select id="subCategoryDropdown"  required>
+			<option value="">-- Select Subcategory --</option>
+		</select><br/><br/>
+
+		<label for="description">Description:</label> 
+		<textarea id="description" name="description"></textarea><br/><br/>
+
+        <label for="image">Select Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required /><br/>
+
+        <button type="submit">Upload</button>
+
+    </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <p>&copy; 2025 Ideal furniture. All rights reserved.</p>
+</footer>
+    <script src="media.js"></script>
+	 <script>
+        const form = document.getElementById("uploadForm");
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+			const subCategoryId = document.getElementById("subCategoryDropdown").value;
+			const description = document.getElementById("description").value;
+			const image = document.getElementById("image").files[0];
+			 if (!description || description.trim() === "") {
+				alert("Description is required.");
+				return;
+			}
+		
+            const formData = new FormData();
+			formData.append("subCategoryId", subCategoryId);
+			formData.append("description", description);
+			formData.append("image", image);
+			/* Log form data to see what is being sent
+			for (let pair of formData.entries()) {
+				console.log(pair[0]+ ': ' + pair[1]);
+			}*/
+
+		  try {
+
+			  //const dataUrl='http://localhost:5250/api/media/upload';
+				const dataUrl='https://idealfurniture.runasp.net/api/media/upload';
+
+				const response = await fetch(dataUrl, {
+				method: 'POST',
+				body: formData, // Let browser set Content-Type with boundary
+			});
+
+			if (!response.ok) {
+				const errorText = await response.text();
+				console.error("Server returned an error:", errorText);
+				return; // Early exit if the server returned an error
+        }
+				alert("Image saved.");
+				const data = await response.json();
+				window.location.href='media.html';
+				console.log("Upload successful:", data);
+			} catch (error) {
+				console.error("Error uploading subcategory:", error);
+			}
+        });
+    </script>
+</body>
+</html>
+
