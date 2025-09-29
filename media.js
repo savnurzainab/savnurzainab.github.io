@@ -17,7 +17,7 @@ async function fetchMedia() {
           const li = document.createElement('li');
           
           // Set the content of the <li> element (user's name)
-          li.innerHTML = `<img src=${data.imagePath} height='100px' width='100px'> <span class="actions">
+          li.innerHTML = `<img src='https://idealfurniture.runasp.net/uploads/${data.imagePath}' height='100px' width='100px'> <span class="actions">
                             <a href="#" class="delete" title="Delete" onclick="fnDeleteMedia(${data.id})"><i class="fas fa-trash-alt"></i></a>
                           </span>`;
 
